@@ -7,6 +7,15 @@ const myReducer = (state = products, action) => {
             state = action.products;
             return [...state];
         }
+        case Type.DELETE_PRODUCT: {
+            const newState = state.filter(product => product.id !== action.id);
+            return [...newState];
+        }
+        case Type.EDIT_PRODUCT: {
+            const index = state.findIndex(product => product.id === action.product.id);
+            state[index] = {...state[index], imageURL: action.product.imageURL, name: action.product.name, price: action.product.price, status: action.product.status};
+            return [...state];
+        }
         default:
             return [...state];
     }
